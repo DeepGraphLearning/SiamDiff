@@ -3,10 +3,10 @@ output_dir: ~/scratch/siamdiff_outputs
 dataset:
   class: AlphaFoldDB
   path: ~/scratch/protein-datasets/alphafold
-  # species_start: 0
-  # species_end: 21
-  species_id: 3
-  split_id: 1
+  species_start: 0
+  species_end: 21
+  # species_id: 3
+  # split_id: 1
   transform:
     class: Compose
     transforms:

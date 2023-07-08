@@ -36,9 +36,8 @@ task:
   num_mlp_layer: 3
 
 optimizer:
-  class: AdamW
+  class: Adam
   lr: 1.0e-4
-  weight_decay: 0
 
 engine:
   gpus: [0]
