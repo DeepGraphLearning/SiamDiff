@@ -1,0 +1,55 @@
+output_dir: ~/scratch/siamdiff_outputs
+
+dataset:
+  class: PSRDataset
+  path:  ~/scratch/protein-datasets/
+  atom_feature: null
+  residue_feature: default
+  transform:
+    class: ProteinView
+    view: residue
+
+task:
+  class: PSR
+  model:
+    class: GVPGNN
+    node_in_dim: [18, 0]
+    node_h_dim: [100, 16]
+    edge_in_dim: [16, 1]
+    edge_h_dim: [32, 1]
+    num_layers: 5
+    vector_gate: True
+    readout: mean
+    drop_rate: 0.1
+    residue_in_dim: 21
+  num_mlp_layer: 3
+  graph_construction_model:
+    class: GraphConstruction
+    edge_layers:
+      - class: SpatialEdge
+        radius: 4.5
+        min_distance: 0
+    edge_feature: null
+
+optimizer:
+  class: AdamW
+  lr: 1.0e-4
+  weight_decay: 0
+
+scheduler:
+  class: ReduceLROnPlateau
+  mode: max
+  factor: 0.6
+  patience: 5
+
+engine:
+  gpus: [0]
+  batch_size: 8
+  num_worker: 4
+
+train:
+  num_epoch: 50
+  train_time: 120
+  val_time: 20
+  test_time: 100
+  eval_metric: spearmanr [gdt_ts]

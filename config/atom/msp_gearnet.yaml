@@ -1,0 +1,59 @@
+output_dir: ~/scratch/siamdiff_outputs
+
+dataset:
+  class: MSPDataset
+  path: ~/scratch/protein-datasets/
+  atom_feature: null
+  residue_feature: default
+  transform:
+    class: Compose
+    transforms:
+      - class: ProteinView
+        view: residue
+        keys: ["graph1", "graph2"]
+      - class: TruncateProteinPair
+        max_length: 400
+      - class: AtomFeature
+        atom_feature: residue_symbol
+        keys: ["graph1", "graph2"]
+
+task:
+  class: MSP
+  model:
+    class: GearNet
+    input_dim: 39
+    hidden_dims: [128, 128, 128, 128, 128, 128]
+    batch_norm: True
+    concat_hidden: True
+    short_cut: True
+    readout: mean
+    num_relation: 1
+    edge_input_dim: 53
+    num_angle_bin: 8
+  num_mlp_layer: 3
+  graph_construction_model:
+    class: GraphConstruction
+    edge_layers:
+      - class: SpatialEdge
+        radius: 4.5
+        min_distance: 0
+    edge_feature: gearnet
+
+optimizer:
+  class: AdamW
+  lr: 1.0e-4
+  weight_decay: 0
+
+engine:
+  gpus: [0]
+  batch_size: 8
+  num_worker: 4
+
+model_checkpoint: {{ ckpt }}
+
+train:
+  num_epoch: 50
+  train_time: 120
+  val_time: 20
+  test_time: 100
+  eval_metric: auroc [label]
