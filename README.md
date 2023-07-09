@@ -151,8 +151,8 @@ If you find this codebase useful in your research, please cite the following pap
 
 ```bibtex
 @article{zhang2023siamdiff,
-  title={Protein Encoder Pre-Training via Siamese Sequence-Structure Diffusion Trajectory Prediction},
-  author={Zhang, Zuobai* and Xu, Minghao* and Lozano, Aur{\'e}lie and Chenthamarakshan, Vijil and Das, Payel and Tang, Jian},
+  title={Pre-Training Protein Encoder via Siamese Sequence-Structure Diffusion Trajectory Prediction},
+  author={Zhang, Zuobai and Xu, Minghao and Lozano, Aur{\'e}lie and Chenthamarakshan, Vijil and Das, Payel and Tang, Jian},
   journal={arXiv preprint arXiv:2301.12068},
   year={2023}
 }
